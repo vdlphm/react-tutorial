@@ -1,21 +1,18 @@
-import './App.css';
+import { useState } from "react";
+import Todo from "./components/Todo";
 
 function App() {
+  const [todos, setTodos] = useState([]);
+  function onTodoDelete() {
+    console.log("Delete");
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Todo List</h1>
+      <Todo name="Test 1" onTodoDelete={onTodoDelete} />
+      <Todo name="Test 1" onTodoDelete={onTodoDelete} />
+      <Todo name="Test 1" onTodoDelete={onTodoDelete} />
     </div>
   );
 }
