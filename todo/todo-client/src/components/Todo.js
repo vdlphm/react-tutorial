@@ -16,7 +16,7 @@ function Todo({ name, onTodoDelete }) {
   return (
     <div className="card">
       <h2>{name}</h2>
-      <div class="actions">
+      <div className="actions">
         <button className="btn" onClick={onClickDelete}>
           Delete
         </button>
