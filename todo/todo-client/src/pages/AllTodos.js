@@ -1,10 +1,12 @@
 import { useState } from "react";
-import Cookies from "js-cookie";
+import CookieConsent, { Cookies } from "react-cookie-consent";
 import Todo from "../components/Todo";
 
 function AllTodo() {
   const [todos, setTodos] = useState(
-    Cookies.get("todos") ? JSON.parse(Cookies.get("todos")) : []
+    Cookies.get("todoCookieConsent") && Cookies.get("todos")
+      ? JSON.parse(Cookies.get("todos"))
+      : []
   );
   const [value, setValue] = useState("");
 
@@ -15,7 +17,7 @@ function AllTodo() {
     let tempTodos = todos;
     tempTodos.push(value);
     Cookies.set("todos", JSON.stringify(tempTodos), {
-      expires: 1 / 1440,
+      expires: 1,
       path: "",
     });
     setTodos(tempTodos);
@@ -24,12 +26,31 @@ function AllTodo() {
 
   function onTodoDelete(index) {
     let temp = todos.filter((item, i) => i !== index);
-    Cookies.set("todos", JSON.stringify(temp), { expires: 1 / 1440, path: "" });
+    Cookies.set("todos", JSON.stringify(temp), { expires: 1, path: "" });
     setTodos(temp);
   }
 
   return (
     <div>
+      <CookieConsent
+        location="bottom"
+        cookieName="todoCookieConsent"
+        style={{ background: "white", color: "333333" }}
+        buttonText="I Understand!"
+        buttonStyle={{
+          color: "white",
+          font: "inherit",
+          fontSize: "15px",
+          border: "1px solid #800040",
+          margin: "0 1rem",
+          padding: "0.5rem 1.5rem",
+          background: "#800040",
+          borderRadius: "4px",
+        }}
+        expires={150}
+      >
+        This website uses cookies to enhance the user experience.
+      </CookieConsent>
       <h1>Todo List</h1>
       <input
         className="input"

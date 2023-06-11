@@ -13,6 +13,11 @@ function Todo({ name, onTodoDelete }) {
     setOpenPopup(false);
   }
 
+  function onDelete() {
+    setOpenPopup(false);
+    onTodoDelete();
+  }
+
   return (
     <div className="card">
       <h2>{name}</h2>
@@ -21,7 +26,7 @@ function Todo({ name, onTodoDelete }) {
           Delete
         </button>
         {openPopup ? (
-          <Popup name={name} onCancel={onPopupCancel} onDelete={onTodoDelete} />
+          <Popup name={name} onCancel={onPopupCancel} onDelete={onDelete} />
         ) : null}
         {openPopup && <Backdrop onCancel={onPopupCancel} />}
       </div>
