@@ -1,8 +1,11 @@
 import { useState } from "react";
+import Cookies from "js-cookie";
 import Todo from "../components/Todo";
 
 function AllTodo() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(
+    Cookies.get("todos") ? JSON.parse(Cookies.get("todos")) : []
+  );
   const [value, setValue] = useState("");
 
   function onAddTodo() {
@@ -11,12 +14,17 @@ function AllTodo() {
     }
     let tempTodos = todos;
     tempTodos.push(value);
+    Cookies.set("todos", JSON.stringify(tempTodos), {
+      expires: 1 / 1440,
+      path: "",
+    });
     setTodos(tempTodos);
     setValue("");
   }
 
   function onTodoDelete(index) {
     let temp = todos.filter((item, i) => i !== index);
+    Cookies.set("todos", JSON.stringify(temp), { expires: 1 / 1440, path: "" });
     setTodos(temp);
   }
 
